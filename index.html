@@ -4,20 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>RISE — Abriendo App</title>
+  <title>RISE — Lanzando App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Extrae este UUID (36 caracteres) desde app.json → expo.extra.eas.projectId
-    const EAS_PROJECT_ID = '8c45131b-609f-4414-8adb-f0f798658968';
+    // Configuración oficial con tu Project ID real
+    const EAS_PROJECT_ID = '8c45131b-609f-4414-8adb-f0f798658968'; 
+    const CHANNEL = 'preview';
+    const EXPO_REDIRECT = `exp://u.expo.dev/${EAS_PROJECT_ID}?channel-name=${CHANNEL}`;
 
-    const EXPO_REDIRECT = `exp://u.expo.dev/${EAS_PROJECT_ID}?channel-name=preview`;
-
+    // Intentar redirección automática de inmediato
     window.addEventListener('DOMContentLoaded', () => {
       window.location.replace(EXPO_REDIRECT);
+
+      // Si después de 2.5 segundos sigue en esta página (común en iOS), 
+      // mostramos suavemente el botón de respaldo para el usuario.
+      setTimeout(() => {
+        const fallbackBtn = document.getElementById('fallback-btn');
+        if (fallbackBtn) {
+          fallbackBtn.classList.remove('opacity-0', 'pointer-events-none');
+          fallbackBtn.classList.add('opacity-100');
+        }
+      }, 2500);
     });
+
+    // Función manual activada por el toque del usuario (Se salta el bloqueo de iOS)
+    function openAppManual() {
+      window.location.href = EXPO_REDIRECT;
+    }
   </script>
 </head>
-<body class="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center p-6">
+<body class="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center p-6 select-none">
   <main class="flex flex-col items-center gap-6 text-center max-w-sm">
     <div
       class="h-10 w-10 rounded-full border-2 border-zinc-700 border-t-emerald-400 animate-spin"
@@ -29,10 +45,19 @@
       <h1 class="text-lg font-medium tracking-tight text-zinc-100">
         Abriendo RISE en Expo Go...
       </h1>
-      <p class="text-sm text-zinc-500">
-        Conectando de forma directa con el canal preview.
+      <p class="text-sm text-zinc-500 px-4">
+        Sincronizando con el canal de pruebas nativo.
       </p>
     </div>
+
+    
+    <button
+      id="fallback-btn"
+      onclick="openAppManual()"
+      class="mt-4 px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 font-semibold text-sm rounded-xl shadow-lg shadow-emerald-500/10 transition-all duration-500 opacity-0 pointer-events-none"
+    >
+      Abrir app manualmente
+    </button>
   </main>
 </body>
 </html>
