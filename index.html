@@ -7,7 +7,11 @@
   <title>RISE — Abriendo App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    const EXPO_DEEP_LINK = 'exp://u.expo.dev/8c45131b-609f-4414-8adb-f0f798658968?channel=preview';
+    const EXPO_USER = 'testing-v2';
+    const EXPO_SLUG = 'greenery-mobile';
+    const BRANCH = 'preview';
+
+    const EXPO_DEEP_LINK = `exp://expo.dev/@${EXPO_USER}/${EXPO_SLUG}?release-channel=${BRANCH}`;
 
     window.addEventListener('DOMContentLoaded', () => {
       window.location.replace(EXPO_DEEP_LINK);
@@ -27,7 +31,7 @@
         Abriendo RISE en Expo Go...
       </h1>
       <p class="text-sm text-zinc-500">
-        Si la aplicación no se abre automáticamente, asegúrate de tener instalado Expo Go en tu teléfono.
+        Espera un momento. Si no abre automáticamente, asegúrate de tener la app de Expo Go instalada.
       </p>
     </div>
   </main>
