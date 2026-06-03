@@ -5,14 +5,24 @@ Landing ultra simple desplegada en Vercel. El QR que entregas al cliente **nunca
 ## Cómo funciona
 
 1. El cliente escanea un QR fijo que apunta a tu URL de Vercel (ej. `https://rise-redirect.vercel.app`).
-2. Vercel sirve `index.html`, que redirige al instante al canal permanente `preview` de Expo.
-3. Expo resuelve automáticamente la versión más reciente publicada en ese canal.
-
-Gracias a apuntar a `/channels/preview` en lugar de un update ID concreto, la redirección siempre lleva al último avance sin tocar código ni redesplegar Vercel.
+2. Vercel sirve `index.html`, que abre **Expo Go** directamente vía deep link al canal `preview`.
+3. Expo Go descarga el EAS Update más reciente compatible con SDK 54.
 
 ```
-QR fijo → Vercel → expo.dev/.../channels/preview → último EAS Update
+QR fijo → Vercel → exp://u.expo.dev/...?channel=preview → Expo Go → último EAS Update
 ```
+
+## Requisito en el proyecto Expo (ya configurado)
+
+En `app.json` del proyecto móvil, el `runtimeVersion` debe usar la policy `sdkVersion` (no `appVersion`) para que Expo Go encuentre los updates:
+
+```json
+"runtimeVersion": {
+  "policy": "sdkVersion"
+}
+```
+
+Sin esto, Expo Go busca runtime `exposdk:54.0.0` pero los updates se publican como `1.0.0` y falla con *Failed to download remote update*.
 
 ## Flujo de trabajo (100% automático)
 
@@ -22,7 +32,7 @@ Este despliegue es **definitivo**. Configúralo una vez y olvídate de este repo
 
 1. Despliega este repositorio en [Vercel](https://vercel.com) (sitio estático, sin build).
 2. Genera el QR eterno apuntando a la URL de Vercel (ver sección inferior).
-3. Entrega el QR al cliente.
+3. Entrega el QR al cliente. El cliente debe tener **Expo Go** instalado (SDK 54).
 
 ### Cada nuevo avance (solo desde tu terminal)
 
@@ -72,7 +82,6 @@ npx qrcode "https://tu-proyecto.vercel.app" -o rise-qr.png
 ## Checklist por avance
 
 - [ ] `eas update --branch preview` desde el proyecto Expo
-- [ ] Verificar que la app carga la versión nueva (escaneo de prueba)
+- [ ] Verificar en un teléfono con Expo Go (escaneo de prueba)
 - [ ] **No** tocar este repositorio
 - [ ] **No** regenerar el QR
-# qr-redirector

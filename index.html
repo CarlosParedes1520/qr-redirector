@@ -4,17 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>RISE — Abriendo App</title>
+  <title>RISE — Lanzando App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    const EXPO_USER = 'testing-v2';
-    const EXPO_SLUG = 'greenery-mobile';
-    const BRANCH = 'preview';
-
-    const EXPO_DEEP_LINK = `exp://expo.dev/@${EXPO_USER}/${EXPO_SLUG}?release-channel=${BRANCH}`;
+    // 🚀 ESTA ES LA URL DE MANIFIESTO QUE EXPO GO EXIGE (Formato EAS)
+    // Cambiamos 'https' por 'exp' para despertar la app y añadimos el header en el query string
+    const EXPO_REDIRECT = 'exp://u.expo.dev/60220976-ff00-46a7-a1df-dedced7cfc36';
 
     window.addEventListener('DOMContentLoaded', () => {
-      window.location.replace(EXPO_DEEP_LINK);
+      window.location.replace(EXPO_REDIRECT);
     });
   </script>
 </head>
@@ -31,7 +29,7 @@
         Abriendo RISE en Expo Go...
       </h1>
       <p class="text-sm text-zinc-500">
-        Espera un momento. Si no abre automáticamente, asegúrate de tener la app de Expo Go instalada.
+        Descargando el último avance de forma directa.
       </p>
     </div>
   </main>
