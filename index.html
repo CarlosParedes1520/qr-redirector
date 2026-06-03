@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Redirección automática al canal preview de RISE en Expo. Enlace de desarrollo, no indexable.">
   <meta name="robots" content="noindex, nofollow">
-  <title>RISE — Redireccionando</title>
+  <title>RISE — Abriendo App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    const EXPO_URL = 'https://expo.dev/accounts/testing-v2/projects/greenery-mobile/channels/preview';
+    const EXPO_DEEP_LINK = 'exp://u.expo.dev/8c45131b-609f-4414-8adb-f0f798658968?channel=preview';
 
     window.addEventListener('DOMContentLoaded', () => {
-      window.location.replace(EXPO_URL);
+      window.location.replace(EXPO_DEEP_LINK);
     });
   </script>
 </head>
@@ -25,10 +24,10 @@
 
     <div class="space-y-2">
       <h1 class="text-lg font-medium tracking-tight text-zinc-100">
-        Redireccionando al último avance de RISE...
+        Abriendo RISE en Expo Go...
       </h1>
       <p class="text-sm text-zinc-500">
-        Un momento, te estamos llevando a la versión más reciente.
+        Si la aplicación no se abre automáticamente, asegúrate de tener instalado Expo Go en tu teléfono.
       </p>
     </div>
   </main>
